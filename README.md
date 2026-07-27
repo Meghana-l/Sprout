@@ -1,11 +1,12 @@
 # Sprout — a teacher's quick notes become a warm daily update for every family.
 
-### 🔗 Live app: https://REPLACE-WITH-YOUR-LIVE-URL
+### 🔗 Live app: [https://REPLACE-WITH-YOUR-LIVE-URL](https://sprout-five-rho.vercel.app/)
 
 ---
 
 <!-- SCREENSHOT: main screen with an example loaded -->
-![Sprout — main screen](screenshots/01-home.png)
+<img width="1213" height="853" alt="image" src="https://github.com/user-attachments/assets/9d8428d8-7f7a-4fd8-8c2a-e21f8f352eec" />
+
 
 ---
 
