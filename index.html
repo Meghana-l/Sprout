@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sprout — Daily family updates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;450;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBFAF6; --surface:#fff; --ink:#1B2A2A; --sub:#5C6E6A; --line:#E7E3D8;
+    --teal:#0E7C6B; --tealSoft:#E7F1EC; --amber:#E1912E; --amberSoft:#FBEFD9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif}
+  .fr{font-family:'Fraunces',Georgia,serif}
+  .wrap{max-width:1040px;margin:0 auto;padding:26px 22px 48px}
+  .head{display:flex;align-items:center;gap:12px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+  .logo{width:38px;height:38px;border-radius:10px;background:var(--teal);display:grid;place-items:center}
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:20px;margin-top:24px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+  label.t{font-size:13px;font-weight:600}
+  .exrow{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:10px 0 12px}
+  .exrow .lbl{font-size:12px;color:var(--sub)}
+  .ex{padding:5px 11px;border-radius:999px;font-size:12.5px;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--teal);font-weight:500;font-family:inherit}
+  .ex:hover{background:var(--tealSoft)}
+  textarea{width:100%;resize:vertical;border:1px solid var(--line);border-radius:12px;padding:12px 13px;font-size:14.5px;line-height:1.55;color:var(--ink);outline:none;background:#FCFBF8;font-family:inherit}
+  textarea::placeholder{color:#9AA8A3}
+  .ctl-l{font-size:12px;color:var(--sub);margin-bottom:7px;font-weight:500}
+  .seg{display:inline-flex;background:#F1EEE5;border-radius:999px;padding:3px}
+  .seg button{padding:7px 14px;border-radius:999px;font-size:13px;border:none;cursor:pointer;font-weight:500;background:transparent;color:var(--sub);font-family:inherit}
+  .seg button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  .langs{display:flex;gap:6px;flex-wrap:wrap}
+  .langs button{padding:7px 12px;border-radius:999px;font-size:13px;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--sub);font-weight:500;font-family:inherit}
+  .langs button[aria-pressed="true"]{border-color:var(--teal);background:var(--teal);color:#fff}
+  .toggle{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+  .track{width:40px;height:23px;border-radius:999px;background:#D8D3C6;position:relative;transition:background .18s;flex:none}
+  .track[data-on="true"]{background:var(--amber)}
+  .knob{position:absolute;top:2px;left:2px;width:19px;height:19px;border-radius:50%;background:#fff;transition:left .18s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+  .track[data-on="true"] .knob{left:19px}
+  .go{margin-top:18px;width:100%;padding:13px 16px;border-radius:12px;border:none;background:var(--teal);color:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:0 6px 16px rgba(14,124,107,.22);transition:transform .15s}
+  .go:hover{transform:translateY(-1px)}
+  .go:disabled{background:#BFC7C2;box-shadow:none;cursor:default;transform:none}
+  .empty{border:1px dashed var(--line);border-radius:16px;padding:30px 26px;background:#FDFCF9;height:100%}
+  .steps{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:11px}
+  .steps li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:#374a48;line-height:1.5}
+  .num{flex:none;width:22px;height:22px;border-radius:50%;background:var(--tealSoft);color:var(--teal);font-size:12px;font-weight:600;display:grid;place-items:center;margin-top:1px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 17px;animation:rise .45s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .crow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .avatar{width:26px;height:26px;border-radius:50%;background:var(--tealSoft);color:var(--teal);display:grid;place-items:center;font-size:13px;font-weight:600}
+  .copy{border:1px solid var(--line);background:#fff;color:var(--sub);font-size:12.5px;padding:6px 11px;border-radius:999px;cursor:pointer;font-weight:500;font-family:inherit}
+  .msg{margin:0;font-size:15px;line-height:1.62;color:#283736}
+  .chip{margin-top:11px;display:inline-flex;align-items:center;gap:7px;background:var(--amberSoft);color:#8A5A12;font-size:12.5px;padding:6px 11px;border-radius:999px;font-weight:500}
+  .stack{display:flex;flex-direction:column;gap:14px}
+  .skel{background:linear-gradient(90deg,#EFEBE1 25%,#F6F3EA 37%,#EFEBE1 63%);background-size:800px 100%;animation:sh 1.3s infinite linear;border-radius:6px}
+  @keyframes sh{0%{background-position:-400px 0}100%{background-position:400px 0}}
+  @media(prefers-reduced-motion:reduce){.card,.skel{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="logo"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 21c0-6 2-11 8-13-1 7-3 11-8 13z" fill="#fff"/><path d="M12 21C7 19 5 12 5 6c5 1 7 6 7 15z" fill="#BFE5D9"/></svg></div>
+    <div>
+      <div class="fr" style="font-size:23px;font-weight:600;letter-spacing:-.01em">Sprout</div>
+      <div style="font-size:12.5px;color:var(--sub);margin-top:-1px">Daily family updates, written from a teacher's notes</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- input -->
+    <div class="panel">
+      <label class="t">Today's notes</label>
+      <div class="exrow">
+        <span class="lbl">Try an example:</span>
+        <button class="ex" data-ex="infant">Infant room</button>
+        <button class="ex" data-ex="toddler">Toddler room</button>
+        <button class="ex" data-ex="prek">Pre-K room</button>
+      </div>
+      <textarea id="notes" rows="8" placeholder="One child per line, however you'd scribble it —&#10;Liam: ate lunch, nap 12–1:40, said &quot;more&quot; clearly, cried at drop-off but ok after."></textarea>
+
+      <div style="margin-top:16px;display:flex;flex-direction:column;gap:14px">
+        <div><div class="ctl-l">Tone</div><div class="seg" id="tone"></div></div>
+        <div><div class="ctl-l">Length</div><div class="seg" id="length"></div></div>
+        <div><div class="ctl-l">Family's language</div><div class="langs" id="lang"></div></div>
+        <label class="toggle"><span class="track" id="track" data-on="true"><span class="knob"></span></span><span style="font-size:13.5px">Surface a developmental milestone</span></label>
+      </div>
+
+      <button class="go" id="go">Write updates</button>
+    </div>
+
+    <!-- output -->
+    <div id="out">
+      <div class="empty">
+        <div class="fr" style="font-size:18px;font-weight:500">How it works</div>
+        <ol class="steps">
+          <li><span class="num">1</span><span>Type or paste your quick notes — one child per line. Or tap an example above.</span></li>
+          <li><span class="num">2</span><span>Choose the tone, length, and the language the family reads at home.</span></li>
+          <li><span class="num">3</span><span>Press <b>Write updates</b>.</span></li>
+          <li><span class="num">4</span><span>A warm, ready-to-send message appears for each child. Review, copy, and send.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const EXAMPLES = {
+  infant:`Ravi — bottle 4oz at 10, napped 12–1:15, tummy time ~10 min, giggled a lot. One diaper blowout, all cleaned up. Reached for the rattle on his own today.
+Zoe — refused her morning bottle, took 3oz after nap, fussy from teething, loved the mirror, rolled belly to back twice.`,
+  toddler:`Mia — big lunch (pasta + ALL her peas), nap 12:30–2, one accident before nap. Used scissors at the art table for the first time, so proud of herself. A little weepy at pickup, missed mom.
+Noah — refused nap, blocks ~40 min, shared with Kai (!). Low energy, maybe teething. Ate half his snack.
+Aria — happy drop-off, counted to 12 out loud, painted "a rainbow for daddy," 2 wet diapers, slept well.`,
+  prek:`Leo — wrote his name by himself for the first time! Ate all his lunch, rested quietly instead of napping, cleaned up the blocks without being asked. A little bossy with Sam at recess, we practiced taking turns.
+Priya — quiet in the morning, warmed up by circle time, counted to 20 in both Spanish and English, small scrape on her knee at the playground (cleaned, tiny bandaid), very proud of her block tower.`
+};
+
+const state = { tone:"Warm", length:"Standard", lang:"English", milestone:true };
+
+function seg(id, opts, key){
+  const el = document.getElementById(id);
+  opts.forEach(o=>{
+    const b=document.createElement('button'); b.textContent=o;
+    b.setAttribute('aria-pressed', state[key]===o);
+    b.onclick=()=>{ state[key]=o; [...el.children].forEach(c=>c.setAttribute('aria-pressed', c.textContent===o)); };
+    el.appendChild(b);
+  });
+}
+seg('tone',["Warm","Playful","Straightforward"],'tone');
+seg('length',["Short","Standard"],'length');
+seg('lang',["English","Español","中文","Tiếng Việt"],'lang');
+
+document.getElementById('track').onclick=(e)=>{ state.milestone=!state.milestone; e.currentTarget.setAttribute('data-on', state.milestone); };
+document.querySelectorAll('.ex').forEach(b=>{ b.onclick=()=>{ document.getElementById('notes').value = EXAMPLES[b.dataset.ex]; }; });
+
+const out = document.getElementById('out');
+function esc(s){ return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+
+function skeleton(){
+  out.innerHTML='<div class="stack">'+[0,1,2].map(()=>`
+    <div class="card" style="animation:none">
+      <div class="skel" style="width:120px;height:16px;margin-bottom:12px"></div>
+      <div class="skel" style="width:100%;height:11px;margin-bottom:8px"></div>
+      <div class="skel" style="width:94%;height:11px;margin-bottom:8px"></div>
+      <div class="skel" style="width:70%;height:11px"></div>
+    </div>`).join('')+'</div>';
+}
+
+function render(updates){
+  out.innerHTML='<div class="stack">'+updates.map((u,i)=>`
+    <div class="card" style="animation-delay:${i*70}ms">
+      <div class="crow">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span class="avatar">${esc((u.child||'?').trim().charAt(0).toUpperCase())}</span>
+          <span style="font-weight:600;font-size:15px">${esc(u.child)}</span>
+        </div>
+        <button class="copy" data-i="${i}">Copy</button>
+      </div>
+      <p class="msg">${esc(u.message)}</p>
+      ${state.milestone && u.milestone ? `<div class="chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z" fill="#E1912E"/></svg>${esc(u.milestone)}</div>`:''}
+    </div>`).join('')+'</div>';
+  out.querySelectorAll('.copy').forEach(btn=>{
+    btn.onclick=()=>{ const u=updates[btn.dataset.i]; navigator.clipboard&&navigator.clipboard.writeText(u.message);
+      btn.textContent='Copied'; btn.style.color='var(--teal)'; setTimeout(()=>{btn.textContent='Copy';btn.style.color='';},1400); };
+  });
+}
+
+function errorBox(m){ out.innerHTML=`<div class="panel" style="color:var(--sub);font-size:14.5px">${esc(m)}</div>`; }
+
+const go = document.getElementById('go');
+go.onclick = async ()=>{
+  const notes = document.getElementById('notes').value.trim();
+  if(!notes) return;
+  go.disabled=true; go.textContent='Writing updates…'; skeleton();
+  try{
+    const r = await fetch('/api/generate',{ method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({ notes, tone:state.tone, length:state.length, lang:state.lang, milestone:state.milestone }) });
+    const raw = await r.text();
+    let data=null; try{ data = JSON.parse(raw); }catch(_){}
+    if(!r.ok){ errorBox('Error '+r.status+': '+((data&&data.error)|| raw.slice(0,220))); return; }
+    if(!data || !data.updates){ errorBox('Unexpected response: '+raw.slice(0,220)); return; }
+    render(data.updates);
+  }catch(e){ errorBox('Network/JS error: '+(e.message||e)); }
+  finally{ go.disabled=false; go.textContent='Write updates'; }
+};
+</script>
+</body>
+</html>
