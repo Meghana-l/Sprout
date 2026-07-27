@@ -5,7 +5,8 @@
 ---
 
 <!-- SCREENSHOT: main screen with an example loaded -->
-<img width="1213" height="853" alt="image" src="https://github.com/user-attachments/assets/9d8428d8-7f7a-4fd8-8c2a-e21f8f352eec" />
+<img width="1290" height="856" alt="image" src="https://github.com/user-attachments/assets/6e700bb6-da34-4bb3-a675-52a9d3cfebb4" />
+
 
 
 ---
@@ -38,15 +39,18 @@ It never adds anything that isn't in the notes, and it frames hard moments — a
 
 <!-- SCREENSHOT: the same notes generated in English -->
 **From a teacher's notes to a family-ready update**
-![Generated updates in English](screenshots/02-updates-english.png)
+<img width="1119" height="569" alt="image" src="https://github.com/user-attachments/assets/aa4eafcb-6bcf-4d2c-82e8-6914512dac7c" />
+
 
 <!-- SCREENSHOT: same notes, language switched to Español -->
 **The same day, in the family's language**
-![Generated updates in Spanish](screenshots/03-updates-spanish.png)
+<img width="1146" height="822" alt="image" src="https://github.com/user-attachments/assets/bdc6ca5b-eac0-4906-a8b0-8fc1bc6456e1" />
+
 
 <!-- SCREENSHOT: milestone chip close-up -->
 **A growth moment, surfaced automatically**
-![Milestone highlight](screenshots/04-milestone.png)
+<img width="565" height="442" alt="image" src="https://github.com/user-attachments/assets/6844ae11-3289-4250-aeca-e91d8b877b6d" />
+
 
 ---
 
